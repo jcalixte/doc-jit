@@ -26,7 +26,9 @@ export const isFolderPath = (path?: string): path is FolderPath => {
   return !!path
 }
 
-export const transformToGlobPattern = (folderPath: FolderPath): string => {
+export const transformFolderPathToGlobPattern = (
+  folderPath: FolderPath
+): string => {
   return folderPath.replaceAll("_", "*")
 }
 
@@ -40,25 +42,21 @@ export const getDocumentationsFromFilePath = async (
   const documentations: FolderPath[] = []
 
   const documentationPaths = await globby([DOCJIT_FOLDER])
+
   const documentationFolderPaths = documentationPaths.map((path) =>
     getFolderFromFilePath(path)
   )
 
   for (const documentationFolderPath of documentationFolderPaths) {
-    const globDocumentationFolderPath = transformToGlobPattern(
-      documentationFolderPath
-    )
     const doesFolderPathMatch = minimatch(
       folderPath,
-      globDocumentationFolderPath
+      transformFolderPathToGlobPattern(documentationFolderPath)
     )
 
     if (doesFolderPathMatch) {
-      const rightDocumentations = await globby(documentationFolderPath)
-
-      documentations.push(...(rightDocumentations as FolderPath[]))
+      documentations.push(documentationFolderPath)
     }
   }
 
-  return documentations
+  return (await globby(documentations)) as FolderPath[]
 }
