@@ -9,10 +9,6 @@ const replaceSrcFolderByDocJITFolder = (folderPath: FolderPath): FolderPath => {
   return folderPath.replace(SRC_FOLDER, DOCJIT_FOLDER) as FolderPath
 }
 
-export const getMainREADME = () => {
-  return `${DOCJIT_FOLDER}README.md`
-}
-
 export const getFolderFromFilePath = (filePath: string): FolderPath => {
   return dirname(filePath) as FolderPath
 }
