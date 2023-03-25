@@ -21,9 +21,9 @@ export const isFolderPath = (path?: string): path is FolderPath => {
   return !!path
 }
 
-export const getDocumentation = async (
+export const getDocumentations = async (
   folderPath: FolderPath
-): Promise<string | null> => {
+): Promise<FolderPath[]> => {
   folderPath = replaceSrcFolderByDocJITFolder(folderPath)
   const documentationPaths = await globby([DOCJIT_FOLDER])
   const documentationFolderPaths = documentationPaths.map((path) =>
@@ -32,14 +32,11 @@ export const getDocumentation = async (
 
   for (const documentationFolderPath of documentationFolderPaths) {
     if (documentationFolderPath === folderPath) {
-      const [documentation] = await globby(documentationFolderPath)
+      const rightDocumentations = await globby(documentationFolderPath)
 
-      if (isFolderPath(documentation)) {
-        return documentation
-      }
-      return null
+      return rightDocumentations as FolderPath[]
     }
   }
 
-  return null
+  return []
 }
