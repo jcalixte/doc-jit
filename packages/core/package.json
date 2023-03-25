@@ -2,9 +2,22 @@
   "name": "@doc-jit/core",
   "version": "1.0.0",
   "description": "Documentation just in time",
-  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/main.d.ts",
+      "require": "./dist/main.js",
+      "import": "./dist/main.mjs"
+    }
+  },
+  "main": "./dist/main.js",
+  "module": "./dist/main.mjs",
+  "types": "./dist/main.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "vitest"
+    "test": "vitest",
+    "build": "tsup src/main.ts --dts --format esm,cjs"
   },
   "keywords": [
     "documentation",
@@ -15,6 +28,7 @@
   "license": "MIT",
   "devDependencies": {
     "minimatch": "^7.4.3",
+    "tsup": "^6.7.0",
     "typescript": "^5.0.2",
     "vite": "^4.2.1",
     "vitest": "^0.29.7"
