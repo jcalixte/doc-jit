@@ -1,10 +1,13 @@
 import { describe, expect, it } from "vitest"
-import { getDocumentationsFromFilePath, getFolderFromFilePath } from "./main"
+import {
+  getDocumentationsFromFilePath,
+  getFolderPathFromFilePath,
+} from "./main"
 
 describe("main", () => {
   it("retrieves the folder path from a file path", () => {
     const relativeFilePath = "src/modules/user/components/User.tsx"
-    const relativeFolderPath = getFolderFromFilePath(relativeFilePath)
+    const relativeFolderPath = getFolderPathFromFilePath(relativeFilePath)
 
     expect(relativeFolderPath).toEqual("src/modules/user/components")
   })

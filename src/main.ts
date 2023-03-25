@@ -18,7 +18,7 @@ const replaceSrcFolderByDocJITFolder = (folderPath: FolderPath): FolderPath => {
   return makeFolderPath(folderPath.replace(SRC_FOLDER, DOCJIT_FOLDER))
 }
 
-export const getFolderFromFilePath = (filePath: string): FolderPath => {
+export const getFolderPathFromFilePath = (filePath: string): FolderPath => {
   return makeFolderPath(dirname(filePath))
 }
 
@@ -36,13 +36,13 @@ export const getDocumentationsFromFilePath = async (
   filePath: string
 ): Promise<FolderPath[]> => {
   const folderPath = replaceSrcFolderByDocJITFolder(
-    getFolderFromFilePath(filePath)
+    getFolderPathFromFilePath(filePath)
   )
 
   const documentationPaths = await globby([DOCJIT_FOLDER])
 
   const documentations = documentationPaths
-    .map((path) => getFolderFromFilePath(path))
+    .map((path) => getFolderPathFromFilePath(path))
     .filter((documentationFolderPath) =>
       minimatch(
         folderPath,
