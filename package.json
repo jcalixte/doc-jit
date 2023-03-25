@@ -1,0 +1,20 @@
+{
+  "name": "doc-jit",
+  "version": "1.0.0",
+  "description": "Documentation just in time",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "vitest"
+  },
+  "keywords": [
+    "documentation",
+    "jit",
+    "just in time"
+  ],
+  "author": "Julien Calixte",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.0.2",
+    "vitest": "^0.29.7"
+  }
+}
