@@ -5,12 +5,20 @@ import { FolderPath } from "./types/folder-path"
 const DOCJIT_FOLDER = `.doc-jit/`
 const SRC_FOLDER = "src/"
 
+const makeFolderPath = (path: string): FolderPath => {
+  if (!isFolderPath(path)) {
+    throw new Error(`Can not make path as a folder path: ${path}`)
+  }
+
+  return path
+}
+
 const replaceSrcFolderByDocJITFolder = (folderPath: FolderPath): FolderPath => {
-  return folderPath.replace(SRC_FOLDER, DOCJIT_FOLDER) as FolderPath
+  return makeFolderPath(folderPath.replace(SRC_FOLDER, DOCJIT_FOLDER))
 }
 
 export const getFolderFromFilePath = (filePath: string): FolderPath => {
-  return dirname(filePath) as FolderPath
+  return makeFolderPath(dirname(filePath))
 }
 
 export const isFolderPath = (path?: string): path is FolderPath => {
