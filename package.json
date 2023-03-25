@@ -1,25 +1,7 @@
 {
-  "name": "doc-jit",
-  "version": "1.0.0",
-  "description": "Documentation just in time",
-  "main": "dist/index.js",
-  "scripts": {
-    "test": "vitest"
-  },
-  "keywords": [
-    "documentation",
-    "jit",
-    "just in time"
-  ],
-  "author": "Julien Calixte",
-  "license": "ISC",
-  "devDependencies": {
-    "minimatch": "^7.4.3",
-    "typescript": "^5.0.2",
-    "vite": "^4.2.1",
-    "vitest": "^0.29.7"
-  },
-  "dependencies": {
-    "globby": "^13.1.3"
-  }
+  "name": "@doc-jit/monorepo",
+  "private": true,
+  "packageManager": "pnpm@7.30.3",
+  "author": "Julien Calixte <julienc@bam.tech>",
+  "license": "MIT"
 }
