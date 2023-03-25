@@ -1,0 +1,27 @@
+{
+  "name": "doc-jit",
+  "publisher": "jcalixte",
+  "version": "1.0.0",
+  "description": "A documentation just in time to access the right doc when you need it the most",
+  "license": "MIT",
+  "categories": [
+    "Education"
+  ],
+  "main": "./dist/index.js",
+  "engines": {
+    "vscode": "^1.71.0"
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --external vscode"
+  },
+  "dependencies": {
+    "@doc-jit/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.76.0",
+    "tsup": "^6.7.0"
+  }
+}
