@@ -1,6 +1,7 @@
 import { globby } from "globby"
 import { dirname } from "path"
 import { FolderPath } from "./types/folder-path"
+import { minimatch } from "minimatch"
 
 const DOCJIT_FOLDER = `.doc-jit/`
 const SRC_FOLDER = "src/"
@@ -25,22 +26,39 @@ export const isFolderPath = (path?: string): path is FolderPath => {
   return !!path
 }
 
-export const getDocumentations = async (
-  folderPath: FolderPath
+export const transformToGlobPattern = (folderPath: FolderPath): string => {
+  return folderPath.replaceAll("_", "*")
+}
+
+export const getDocumentationsFromFilePath = async (
+  filePath: string
 ): Promise<FolderPath[]> => {
-  folderPath = replaceSrcFolderByDocJITFolder(folderPath)
+  const folderPath = replaceSrcFolderByDocJITFolder(
+    getFolderFromFilePath(filePath)
+  )
+
+  const documentations: FolderPath[] = []
+
   const documentationPaths = await globby([DOCJIT_FOLDER])
   const documentationFolderPaths = documentationPaths.map((path) =>
     getFolderFromFilePath(path)
   )
 
   for (const documentationFolderPath of documentationFolderPaths) {
-    if (documentationFolderPath === folderPath) {
+    const globDocumentationFolderPath = transformToGlobPattern(
+      documentationFolderPath
+    )
+    const doesFolderPathMatch = minimatch(
+      folderPath,
+      globDocumentationFolderPath
+    )
+
+    if (doesFolderPathMatch) {
       const rightDocumentations = await globby(documentationFolderPath)
 
-      return rightDocumentations as FolderPath[]
+      documentations.push(...(rightDocumentations as FolderPath[]))
     }
   }
 
-  return []
+  return documentations
 }
