@@ -39,24 +39,16 @@ export const getDocumentationsFromFilePath = async (
     getFolderFromFilePath(filePath)
   )
 
-  const documentations: FolderPath[] = []
-
   const documentationPaths = await globby([DOCJIT_FOLDER])
 
-  const documentationFolderPaths = documentationPaths.map((path) =>
-    getFolderFromFilePath(path)
-  )
-
-  for (const documentationFolderPath of documentationFolderPaths) {
-    const doesFolderPathMatch = minimatch(
-      folderPath,
-      transformFolderPathToGlobPattern(documentationFolderPath)
+  const documentations = documentationPaths
+    .map((path) => getFolderFromFilePath(path))
+    .filter((documentationFolderPath) =>
+      minimatch(
+        folderPath,
+        transformFolderPathToGlobPattern(documentationFolderPath)
+      )
     )
-
-    if (doesFolderPathMatch) {
-      documentations.push(documentationFolderPath)
-    }
-  }
 
   return (await globby(documentations)) as FolderPath[]
 }
