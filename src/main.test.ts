@@ -1,7 +1,10 @@
 import { describe, expect, it } from "vitest"
+import { getMainREADME } from "./main"
 
 describe("main", () => {
-  it("init", () => {
-    expect(true).toBe(true)
+  it("retrieves the main README.md path from .doc-jit folder", () => {
+    const readmePath = getMainREADME()
+
+    expect(readmePath).toBe(".doc-jit/README.md")
   })
 })
