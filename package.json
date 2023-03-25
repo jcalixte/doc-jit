@@ -16,5 +16,8 @@
   "devDependencies": {
     "typescript": "^5.0.2",
     "vitest": "^0.29.7"
+  },
+  "dependencies": {
+    "globby": "^13.1.3"
   }
 }
