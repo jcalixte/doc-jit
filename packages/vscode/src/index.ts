@@ -1,11 +1,5 @@
 import { getDocumentationsFromFilePath } from "@doc-jit/core"
-import {
-  ExtensionContext,
-  commands,
-  workspace,
-  window,
-  ViewColumn,
-} from "vscode"
+import { ExtensionContext, commands, workspace, window, tests } from "vscode"
 
 export function activate(context: ExtensionContext) {
   context.subscriptions.push(
@@ -35,14 +29,11 @@ export function activate(context: ExtensionContext) {
         return
       }
 
-      let first = true
       for (const documentation of documentations) {
         const document = await workspace.openTextDocument(documentation)
         window.showTextDocument(document, {
           preview: false,
-          viewColumn: first ? ViewColumn.Beside : ViewColumn.Active,
         })
-        first = false
       }
     })
   )
