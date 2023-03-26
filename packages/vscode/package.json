@@ -15,10 +15,11 @@
     "onStartupFinished"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --external vscode --sourcemap",
+    "build": "tsup src/index.ts --external vscode",
+    "dev": "tsup src/index.ts --external vscode --sourcemap",
     "watch": "tsup src/index.ts --external vscode --sourcemap --watch",
     "vscode:prepublish": "pnpm run build",
-    "compile": "pnpm run build"
+    "compile": "pnpm run dev"
   },
   "contributes": {
     "commands": [
@@ -28,7 +29,16 @@
         "title": "Open the associated documentation",
         "icon": "$(book)"
       }
-    ]
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "doc-jit.open",
+          "group": "navigation",
+          "when": "editorTextFocus"
+        }
+      ]
+    }
   },
   "dependencies": {
     "@doc-jit/core": "workspace:*"
