@@ -1,26 +1,49 @@
-import { ExtensionContext, commands, workspace, window } from "vscode"
+import { getDocumentationsFromFilePath } from "@doc-jit/core"
+import {
+  ExtensionContext,
+  commands,
+  workspace,
+  window,
+  ViewColumn,
+} from "vscode"
 
 export function activate(context: ExtensionContext) {
   context.subscriptions.push(
     commands.registerCommand("doc-jit.open", async () => {
-      const filePath = window.activeTextEditor?.document.fileName
+      const document = window.activeTextEditor?.document
+      const filePath = document?.fileName
 
       if (!filePath) {
         return
       }
 
-      const documentations: string[] = []
+      let firstWorkspaceFolderPath = ""
+
+      const workspaceFolders = workspace.workspaceFolders
+      if (workspaceFolders) {
+        const [firstWorkspaceFolder] = workspaceFolders
+        firstWorkspaceFolderPath = firstWorkspaceFolder.uri.path
+      }
+
+      const documentations = await getDocumentationsFromFilePath(
+        firstWorkspaceFolderPath,
+        filePath
+      )
 
       if (!documentations.length) {
         window.showInformationMessage(`No documentation found for ${filePath}`)
         return
       }
 
-      documentations.forEach((documentation) => {
-        workspace.openTextDocument(documentation).then((document) => {
-          window.showTextDocument(document, undefined, true)
+      let first = true
+      for (const documentation of documentations) {
+        const document = await workspace.openTextDocument(documentation)
+        window.showTextDocument(document, {
+          preview: false,
+          viewColumn: first ? ViewColumn.Beside : ViewColumn.Active,
         })
-      })
+        first = false
+      }
     })
   )
 }
