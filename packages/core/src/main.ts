@@ -39,9 +39,9 @@ export const getDocumentationsFromFilePath = async (
     getFolderPathFromFilePath(filePath)
   )
 
-  const documentationPaths = await globby([DOCJIT_FOLDER(workspaceFolder)])
+  const allDocumentationPaths = await globby([DOCJIT_FOLDER(workspaceFolder)])
 
-  const documentations = documentationPaths
+  const documentationPaths = allDocumentationPaths
     .map((path) => getFolderPathFromFilePath(path))
     .filter((documentationFolderPath) =>
       minimatch(
@@ -50,5 +50,7 @@ export const getDocumentationsFromFilePath = async (
       )
     )
 
-  return (await globby(documentations)) as FolderPath[]
+  const documentations = (await globby(documentationPaths)) as FolderPath[]
+
+  return documentations
 }
