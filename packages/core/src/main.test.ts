@@ -60,4 +60,19 @@ describe("main", () => {
       ".doc-jit/modules/book/hook/use-book-hook.md",
     ])
   })
+
+  it("works with workspace folder", async () => {
+    const workspaceFolderPath = process.cwd()
+    const absoluteFilePath = `${workspaceFolderPath}/src/modules/book/hook/useBooks.ts`
+
+    const documentations = await getDocumentationsFromFilePath(
+      workspaceFolderPath,
+      absoluteFilePath
+    )
+
+    expect(documentations).toEqual([
+      `${workspaceFolderPath}/.doc-jit/modules/__/hook/use-hook.md`,
+      `${workspaceFolderPath}/.doc-jit/modules/book/hook/use-book-hook.md`,
+    ])
+  })
 })
