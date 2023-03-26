@@ -15,8 +15,17 @@
     "onStartupFinished"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --external vscode"
+    "build": "tsup src/index.ts --external vscode",
+    "vscode:prepublish": "pnpm run build"
   },
+  "commands": [
+    {
+      "category": "doc-jit",
+      "command": "doc-jit.open",
+      "title": "Open the associated documentation",
+      "icon": "$(book)"
+    }
+  ],
   "dependencies": {
     "@doc-jit/core": "workspace:*"
   },
