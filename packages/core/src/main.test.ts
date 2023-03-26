@@ -16,6 +16,7 @@ describe("main", () => {
     const relativeFilePath = "src/modules/user/components/User.tsx"
 
     const componentDocumentations = await getDocumentationsFromFilePath(
+      "",
       relativeFilePath
     )
 
@@ -27,7 +28,10 @@ describe("main", () => {
   it("retrieves an empty array if there is no documentation for the asked file", async () => {
     const relativeFilePath = "src/modules/user/no-documentation/useUser.ts"
 
-    const documentations = await getDocumentationsFromFilePath(relativeFilePath)
+    const documentations = await getDocumentationsFromFilePath(
+      "",
+      relativeFilePath
+    )
 
     expect(documentations).toEqual([])
   })
@@ -35,7 +39,10 @@ describe("main", () => {
   it("retrieves the associated documentation to a file with wildcards", async () => {
     const relativeFilePath = "src/modules/book/api/fetchData.ts"
 
-    const documentations = await getDocumentationsFromFilePath(relativeFilePath)
+    const documentations = await getDocumentationsFromFilePath(
+      "",
+      relativeFilePath
+    )
 
     expect(documentations).toEqual([".doc-jit/modules/__/api/fetching-data.md"])
   })
@@ -43,7 +50,10 @@ describe("main", () => {
   it("retrieves the associated documentation to a file with wildcards and specific path", async () => {
     const relativeFilePath = "src/modules/book/hook/useBooks.ts"
 
-    const documentations = await getDocumentationsFromFilePath(relativeFilePath)
+    const documentations = await getDocumentationsFromFilePath(
+      "",
+      relativeFilePath
+    )
 
     expect(documentations).toEqual([
       ".doc-jit/modules/__/hook/use-hook.md",
