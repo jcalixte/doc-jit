@@ -15,17 +15,21 @@
     "onStartupFinished"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --external vscode",
-    "vscode:prepublish": "pnpm run build"
+    "build": "tsup src/index.ts --external vscode --sourcemap",
+    "watch": "tsup src/index.ts --external vscode --sourcemap --watch",
+    "vscode:prepublish": "pnpm run build",
+    "compile": "pnpm run build"
   },
-  "commands": [
-    {
-      "category": "doc-jit",
-      "command": "doc-jit.open",
-      "title": "Open the associated documentation",
-      "icon": "$(book)"
-    }
-  ],
+  "contributes": {
+    "commands": [
+      {
+        "category": "doc-jit",
+        "command": "doc-jit.open",
+        "title": "Open the associated documentation",
+        "icon": "$(book)"
+      }
+    ]
+  },
   "dependencies": {
     "@doc-jit/core": "workspace:*"
   },
