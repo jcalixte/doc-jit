@@ -2,6 +2,13 @@
   "name": "@doc-jit/core",
   "version": "1.0.0",
   "description": "Documentation just in time",
+  "author": "Julien Calixte <julienc@bam.tech>",
+  "license": "MIT",
+  "keywords": [
+    "documentation",
+    "jit",
+    "just in time"
+  ],
   "exports": {
     ".": {
       "types": "./dist/main.d.ts",
@@ -19,21 +26,14 @@
     "test": "vitest",
     "build": "tsup src/main.ts --dts --format esm,cjs"
   },
-  "keywords": [
-    "documentation",
-    "jit",
-    "just in time"
-  ],
-  "author": "Julien Calixte <julienc@bam.tech>",
-  "license": "MIT",
   "devDependencies": {
-    "minimatch": "^7.4.3",
     "tsup": "^6.7.0",
     "typescript": "^5.0.2",
     "vite": "^4.2.1",
     "vitest": "^0.29.7"
   },
   "dependencies": {
+    "minimatch": "^7.4.3",
     "globby": "^13.1.3"
   }
 }
