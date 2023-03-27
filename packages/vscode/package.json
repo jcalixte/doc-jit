@@ -5,6 +5,11 @@
   "description": "A documentation just in time to access the right doc when you need it the most",
   "icon": "./assets/doc-jit.png",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jcalixte/doc-jit",
+    "directory": "packages/vscode"
+  },
   "categories": [
     "Education",
     "Visualization"
