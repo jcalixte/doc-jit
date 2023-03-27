@@ -14,7 +14,8 @@
     "vscode": "^1.76.0"
   },
   "activationEvents": [
-    "onStartupFinished"
+    "onStartupFinished",
+    "onCommand:doc-jit.open"
   ],
   "scripts": {
     "build": "tsup src/index.ts --external vscode",
