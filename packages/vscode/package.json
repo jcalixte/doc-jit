@@ -19,9 +19,11 @@
   "scripts": {
     "build": "tsup src/index.ts --external vscode",
     "dev": "tsup src/index.ts --external vscode --sourcemap",
+    "compile": "pnpm run dev",
     "watch": "tsup src/index.ts --external vscode --sourcemap --watch",
     "vscode:prepublish": "pnpm run build",
-    "compile": "pnpm run dev"
+    "vspublish": "vsce publish --no-dependencies",
+    "pack": "vsce package --no-dependencies"
   },
   "contributes": {
     "commands": [
