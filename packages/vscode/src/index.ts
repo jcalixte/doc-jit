@@ -3,7 +3,7 @@ import { ExtensionContext, commands, workspace, window, tests } from "vscode"
 
 export function activate(context: ExtensionContext) {
   context.subscriptions.push(
-    commands.registerCommand("doc-jit.open", async () => {
+    commands.registerCommand("docjit.open", async () => {
       const document = window.activeTextEditor?.document
       const filePath = document?.fileName
 

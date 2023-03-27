@@ -19,8 +19,7 @@
     "vscode": "^1.76.0"
   },
   "activationEvents": [
-    "onStartupFinished",
-    "onCommand:doc-jit.open"
+    "onStartupFinished"
   ],
   "scripts": {
     "build": "tsup src/index.ts --external vscode",
@@ -36,7 +35,7 @@
     "commands": [
       {
         "category": "doc-jit",
-        "command": "doc-jit.open",
+        "command": "docjit.open",
         "title": "Open the associated documentation",
         "icon": "$(book)"
       }
@@ -44,7 +43,7 @@
     "menus": {
       "editor/title": [
         {
-          "command": "doc-jit.open",
+          "command": "docjit.open",
           "group": "navigation",
           "when": "editorTextFocus"
         }
