@@ -37,6 +37,20 @@ export function activate(context: ExtensionContext) {
       }
     })
   )
+  const test = async () => {
+    const coms = await commands.getCommands()
+    const filteredComs = coms.filter((com) => com.includes("doc"))
+    window.showInformationMessage(
+      `Good initialisation, ${JSON.stringify(filteredComs)}`
+    )
+    try {
+      await commands.executeCommand("docjit.open")
+    } catch (error) {
+      window.showInformationMessage(`can not execute command docjit.open`)
+    }
+  }
+
+  test()
 }
 
 export function deactivate() {}
