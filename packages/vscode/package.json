@@ -3,7 +3,7 @@
   "publisher": "jcalixte",
   "version": "1.0.0",
   "description": "A documentation just in time to access the right doc when you need it the most",
-  "icon": "https://raw.githubusercontent.com/jcalixte/doc-jit/main/packages/vscode/assets/doc-jit.png",
+  "icon": "./assets/doc-jit.png",
   "license": "MIT",
   "categories": [
     "Education",
