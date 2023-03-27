@@ -1,4 +1,4 @@
-import { getDocumentationsFromFilePath } from "@doc-jit/core"
+import { getDocumentationsFromFilePath } from "./core"
 import { ExtensionContext, commands, workspace, window, tests } from "vscode"
 
 export function activate(context: ExtensionContext) {

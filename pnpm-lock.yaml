@@ -27,11 +27,13 @@ importers:
 
   packages/vscode:
     specifiers:
-      '@doc-jit/core': workspace:*
+      '@cjs-exporter/globby': ^13.1.3
       '@types/vscode': ^1.76.0
+      minimatch: ^7.4.3
       tsup: ^6.7.0
     dependencies:
-      '@doc-jit/core': link:../core
+      '@cjs-exporter/globby': 13.1.3
+      minimatch: 7.4.3
     devDependencies:
       '@types/vscode': 1.76.0
       tsup: 6.7.0
