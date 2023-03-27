@@ -3,10 +3,11 @@
   "publisher": "jcalixte",
   "version": "1.0.0",
   "description": "A documentation just in time to access the right doc when you need it the most",
-  "icon": "assets/doc-jit.png",
+  "icon": "https://raw.githubusercontent.com/jcalixte/doc-jit/main/packages/vscode/assets/doc-jit.png",
   "license": "MIT",
   "categories": [
-    "Education"
+    "Education",
+    "Visualization"
   ],
   "main": "./dist/index.js",
   "engines": {
