@@ -1,3 +1,3 @@
-export const User = () => {
-  return "Hello user"
+export const User = (user: string) => {
+  return `Hello ${user}`
 }
