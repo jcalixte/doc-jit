@@ -6,10 +6,10 @@
   "publisher": "jcalixte",
   "license": "MIT",
   "scripts": {
-    "release": "bumpp package.json packages/*/package.json && pnpm -r publish --access public --no-git-checks && pnpm -r run publish"
+    "release": "bumpp package.json packages/*/package.json && pnpm -r publish --access public --no-git-checks"
   },
   "devDependencies": {
     "bumpp": "^9.0.0"
   },
-  "version": "1.0.7"
+  "version": "1.0.8"
 }
