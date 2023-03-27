@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "description": "Documentation just in time",
   "author": "Julien Calixte <julienc@bam.tech>",
+  "publisher": "jcalixte",
   "license": "MIT",
   "keywords": [
     "documentation",
@@ -24,7 +25,8 @@
   ],
   "scripts": {
     "test": "vitest",
-    "build": "tsup src/main.ts --dts --format esm,cjs"
+    "build": "tsup src/main.ts --dts --format esm,cjs",
+    "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
     "tsup": "^6.7.0",

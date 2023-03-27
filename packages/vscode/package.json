@@ -22,6 +22,7 @@
     "compile": "pnpm run dev",
     "watch": "tsup src/index.ts --external vscode --sourcemap --watch",
     "vscode:prepublish": "pnpm run build",
+    "prepublishOnly": "pnpm run build",
     "publish": "vsce publish --no-dependencies",
     "pack": "vsce package --no-dependencies"
   },
