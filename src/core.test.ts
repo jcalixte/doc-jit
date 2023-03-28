@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest"
 import {
   getDocumentationsFromFilePath,
   getFolderPathFromFilePath,
-} from "./main"
+} from "./core"
 
 describe("main", () => {
   it("retrieves the folder path from a file path", () => {

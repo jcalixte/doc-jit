@@ -1,15 +1,68 @@
 {
-  "name": "@doc-jit/monorepo",
-  "private": true,
-  "packageManager": "pnpm@7.30.3",
-  "author": "Julien Calixte <julienc@bam.tech>",
+  "name": "doc-jit",
   "publisher": "jcalixte",
+  "version": "1.1.9",
+  "description": "A documentation just in time to access the right doc when you need it the most",
+  "icon": "./assets/doc-jit.png",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jcalixte/doc-jit",
+    "directory": "packages/vscode"
+  },
+  "categories": [
+    "Education",
+    "Visualization"
+  ],
+  "main": "./dist/index.js",
+  "engines": {
+    "vscode": "^1.76.0"
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "scripts": {
-    "release": "bumpp package.json packages/*/package.json && pnpm -r publish --access public --no-git-checks"
+    "test": "vitest",
+    "build-base": "tsup src/index.ts --external vscode --clean",
+    "prebuild:prod": "rm -rf ./dist",
+    "build:prod": "esbuild ./src/index.ts --bundle --outfile=dist/index.js --external:vscode --format=cjs --platform=node --minify",
+    "dev": "yarn run build-base --sourcemap",
+    "dev:watch": "yarn run dev --watch",
+    "vscode:prepublish": "yarn run build:prod && yarn bumpp",
+    "publish": "yarn vsce publish --no-dependencies",
+    "pack": "yarn vsce package --no-dependencies"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "category": "doc-jit",
+        "command": "docjit.open",
+        "title": "Open the associated documentation",
+        "icon": "$(book)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "docjit.open",
+          "group": "navigation",
+          "when": "editorTextFocus"
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "@cjs-exporter/globby": "^13.1.3",
+    "minimatch": "^7.4.3"
   },
   "devDependencies": {
-    "bumpp": "^9.0.0"
-  },
-  "version": "1.0.10"
+    "@types/node": "^18.15.10",
+    "@types/vscode": "^1.76.0",
+    "@vscode/vsce": "^2.18.0",
+    "bumpp": "^9.0.0",
+    "esbuild": "^0.17.14",
+    "tsup": "^6.7.0",
+    "vite": "^4.2.1",
+    "vitest": "^0.29.8"
+  }
 }
