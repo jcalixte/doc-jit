@@ -2,4 +2,3 @@
 .vscode/**
 .vscode-test/**
 scripts/**
-node_modules/**
