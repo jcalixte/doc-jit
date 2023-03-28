@@ -1,7 +1,7 @@
 {
   "name": "doc-jit",
   "publisher": "jcalixte",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "A documentation just in time to access the right doc when you need it the most",
   "icon": "./assets/doc-jit.png",
   "license": "MIT",
@@ -22,12 +22,14 @@
     "onStartupFinished"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --external vscode",
-    "dev": "tsup src/index.ts --external vscode --sourcemap",
+    "build-base": "tsup src/index.ts --external vscode --minify --clean",
+    "prebuild:prod": "rm -rf ./dist",
+    "build:prod": "esbuild ./src/index.ts --bundle --outfile=dist/index.js --external:vscode --format=cjs --platform=node --minify",
+    "dev": "yarn run build-base --sourcemap",
     "compile": "yarn run dev",
     "watch": "tsup src/index.ts --external vscode --sourcemap --watch",
-    "vscode:prepublish": "yarn run build",
-    "prepublishOnly": "yarn run build",
+    "vscode:prepublish": "yarn run build:prod",
+    "prepublishOnly": "yarn run build:prod",
     "publish": "vsce publish --no-dependencies",
     "pack": "vsce package --no-dependencies"
   },
@@ -57,6 +59,7 @@
   "devDependencies": {
     "@types/node": "^18.15.10",
     "@types/vscode": "^1.76.0",
+    "esbuild": "^0.17.14",
     "tsup": "^6.7.0"
   }
 }
