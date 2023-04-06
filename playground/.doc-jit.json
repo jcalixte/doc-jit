@@ -1,0 +1,8 @@
+{
+  "patterns": {
+    "**/*.component.tsx": [
+      "https://marketplace.visualstudio.com/items?itemName=jcalixte.doc-jit",
+      "https://github.com/jcalixte/doc-jit"
+    ]
+  }
+}

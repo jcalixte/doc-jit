@@ -1,7 +1,34 @@
-import { getDocumentationsFromFilePath } from "./core"
-import { ExtensionContext, commands, workspace, window, tests } from "vscode"
+import {
+  getDocumentationsFromFilePath,
+  getUrlsFromFilePath,
+  hasConfigFile,
+} from "./core"
+import {
+  ExtensionContext,
+  commands,
+  workspace,
+  window,
+  tests,
+  Uri,
+} from "vscode"
 
-export function activate(context: ExtensionContext) {
+export const openLinks = async (
+  workspaceFolderPath: string,
+  filePath: string
+) => {
+  const links = await getUrlsFromFilePath(workspaceFolderPath, filePath)
+
+  if (!links.length) {
+    window.showInformationMessage(`No documentation found for ${filePath}`)
+    return
+  }
+
+  for (const link of links) {
+    commands.executeCommand("vscode.open", Uri.parse(link))
+  }
+}
+
+export const activate = (context: ExtensionContext) => {
   context.subscriptions.push(
     commands.registerCommand("docjit.open", async () => {
       const document = window.activeTextEditor?.document
@@ -10,13 +37,17 @@ export function activate(context: ExtensionContext) {
       if (!filePath) {
         return
       }
-
       let firstWorkspaceFolderPath = ""
 
       const workspaceFolders = workspace.workspaceFolders
       if (workspaceFolders) {
         const [firstWorkspaceFolder] = workspaceFolders
         firstWorkspaceFolderPath = firstWorkspaceFolder.uri.path
+      }
+
+      if (await hasConfigFile(firstWorkspaceFolderPath)) {
+        await openLinks(firstWorkspaceFolderPath, filePath)
+        return
       }
 
       const documentations = await getDocumentationsFromFilePath(
@@ -39,4 +70,4 @@ export function activate(context: ExtensionContext) {
   )
 }
 
-export function deactivate() {}
+export const deactivate = () => {}
