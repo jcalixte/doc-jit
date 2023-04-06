@@ -1,5 +1,5 @@
 import { globby } from "@cjs-exporter/globby"
-import { readFile } from "fs/promises"
+import { cosmiconfig } from "cosmiconfig"
 import { minimatch } from "minimatch"
 import { dirname } from "path"
 import { ConfigFile } from "./types/config-file"
@@ -9,21 +9,13 @@ const DOCJIT_FOLDER = (workspaceFolder?: string) =>
   `${workspaceFolder ? `${workspaceFolder}/` : ""}.doc-jit`
 const SRC_FOLDER = "src"
 
-const DOCJIT_CONFIG_FILE_PATH = (workspaceFolder?: string) =>
-  `${DOCJIT_FOLDER(workspaceFolder)}.json`
+const getConfigFile = async (): Promise<ConfigFile | null> => {
+  const explorer = cosmiconfig("doc-jit")
 
-const getConfigFile = async (
-  workspaceFolder?: string
-): Promise<ConfigFile | null> => {
   try {
-    const rawDocjitConfigFile = await readFile(
-      DOCJIT_CONFIG_FILE_PATH(workspaceFolder)
-    )
-    const docjitConfigFile = JSON.parse(
-      rawDocjitConfigFile as unknown as string
-    ) satisfies ConfigFile
+    const result = await explorer.search()
 
-    return docjitConfigFile
+    return (result?.config as ConfigFile) || null
   } catch (error) {
     return null
   }
@@ -77,17 +69,16 @@ export const getDocumentationsFromFilePath = async (
   return documentations
 }
 
-export const hasConfigFile = async (workspaceFolder?: string) => {
-  const file = await getConfigFile(workspaceFolder)
+export const hasConfigFile = async () => {
+  const file = await getConfigFile()
 
   return file !== null
 }
 
 export const getUrlsFromFilePath = async (
-  workspaceFolder: string,
   filePath: string
 ): Promise<string[]> => {
-  const configFile = await getConfigFile(workspaceFolder)
+  const configFile = await getConfigFile()
 
   if (!configFile?.patterns) {
     return []
