@@ -2,9 +2,11 @@ import { describe, expect, it } from "vitest"
 import {
   getDocumentationsFromFilePath,
   getFolderPathFromFilePath,
+  getUrlsFromFilePath,
+  hasConfigFile,
 } from "./core"
 
-describe("main", () => {
+describe("with .doc-jit folder", () => {
   it("retrieves the folder path from a file path", () => {
     const relativeFilePath = "src/modules/user/components/User.tsx"
     const relativeFolderPath = getFolderPathFromFilePath(relativeFilePath)
@@ -73,6 +75,57 @@ describe("main", () => {
     expect(documentations).toEqual([
       `${workspaceFolderPath}/.doc-jit/modules/__/hook/use-hook.md`,
       `${workspaceFolderPath}/.doc-jit/modules/book/hook/use-book-hook.md`,
+    ])
+  })
+})
+
+describe("with config file", () => {
+  it("tells true if there is a config file setup", async () => {
+    const configFileConfigured = await hasConfigFile()
+
+    expect(configFileConfigured).toEqual(true)
+  })
+
+  it("tells false if there is not a config file setup", async () => {
+    const configFileConfigured = await hasConfigFile("./BAD_WORKSPACE_FOLDER")
+
+    expect(configFileConfigured).toEqual(false)
+  })
+
+  it("returns empty array if the file doest not satisfy glob patterns", async () => {
+    const workspaceFolderPath = process.cwd()
+
+    const urlsFromFile = await getUrlsFromFilePath(
+      workspaceFolderPath,
+      "./no-glob-pattern-found"
+    )
+
+    expect(urlsFromFile).toEqual([])
+  })
+
+  it("returns a list of URLs to open if the file satisfies glob patterns", async () => {
+    const workspaceFolderPath = process.cwd()
+
+    const urlsFromFile = await getUrlsFromFilePath(
+      workspaceFolderPath,
+      "modules/user/UserLogin.component.tsx"
+    )
+
+    expect(urlsFromFile).toEqual(["https://link-to-component-doc.com"])
+  })
+
+  it("returns a list with glob with string and arrays", async () => {
+    const workspaceFolderPath = process.cwd()
+
+    const urlsFromFile = await getUrlsFromFilePath(
+      workspaceFolderPath,
+      "modules/user/useUser.hook.ts"
+    )
+
+    expect(urlsFromFile).toEqual([
+      "https://link-to-hook-doc.com",
+      "https://link-to-user-ts-files.com",
+      "https://link-to-ts-files.com",
     ])
   })
 })
