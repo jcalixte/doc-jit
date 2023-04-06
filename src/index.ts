@@ -1,16 +1,9 @@
+import { ExtensionContext, Uri, commands, window, workspace } from "vscode"
 import {
   getDocumentationsFromFilePath,
   getUrlsFromFilePath,
   hasConfigFile,
 } from "./core"
-import {
-  ExtensionContext,
-  commands,
-  workspace,
-  window,
-  tests,
-  Uri,
-} from "vscode"
 
 export const openLinks = async (
   workspaceFolderPath: string,

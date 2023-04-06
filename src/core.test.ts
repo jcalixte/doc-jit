@@ -87,13 +87,21 @@ describe("with config file", () => {
   })
 
   it("returns empty array if the file doest not satisfy glob patterns", async () => {
-    const urlsFromFile = await getUrlsFromFilePath("./no-glob-pattern-found")
+    const workspaceFolderPath = process.cwd()
+
+    const urlsFromFile = await getUrlsFromFilePath(
+      workspaceFolderPath,
+      "./no-glob-pattern-found"
+    )
 
     expect(urlsFromFile).toEqual([])
   })
 
   it("returns a list of URLs to open if the file satisfies glob patterns", async () => {
+    const workspaceFolderPath = process.cwd()
+
     const urlsFromFile = await getUrlsFromFilePath(
+      workspaceFolderPath,
       "modules/user/UserLogin.component.tsx"
     )
 
@@ -101,7 +109,10 @@ describe("with config file", () => {
   })
 
   it("returns a list with glob with string and arrays", async () => {
+    const workspaceFolderPath = process.cwd()
+
     const urlsFromFile = await getUrlsFromFilePath(
+      workspaceFolderPath,
       "modules/user/useUser.hook.ts"
     )
 

@@ -9,11 +9,13 @@ const DOCJIT_FOLDER = (workspaceFolder?: string) =>
   `${workspaceFolder ? `${workspaceFolder}/` : ""}.doc-jit`
 const SRC_FOLDER = "src"
 
-const getConfigFile = async (): Promise<ConfigFile | null> => {
+const getConfigFile = async (
+  workspaceFolder?: string
+): Promise<ConfigFile | null> => {
   const explorer = cosmiconfig("doc-jit")
 
   try {
-    const result = await explorer.search()
+    const result = await explorer.search(workspaceFolder ?? process.cwd())
 
     return (result?.config as ConfigFile) || null
   } catch (error) {
@@ -69,16 +71,17 @@ export const getDocumentationsFromFilePath = async (
   return documentations
 }
 
-export const hasConfigFile = async () => {
-  const file = await getConfigFile()
+export const hasConfigFile = async (workspaceFolder?: string) => {
+  const file = await getConfigFile(workspaceFolder)
 
   return file !== null
 }
 
 export const getUrlsFromFilePath = async (
+  workspaceFolder: string,
   filePath: string
 ): Promise<string[]> => {
-  const configFile = await getConfigFile()
+  const configFile = await getConfigFile(workspaceFolder)
 
   if (!configFile?.patterns) {
     return []
