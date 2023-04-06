@@ -1,10 +1,9 @@
 import { globby } from "@cjs-exporter/globby"
-import { dirname } from "path"
-import { FolderPath } from "./types/folder-path"
-import { minimatch } from "minimatch"
 import { readFile } from "fs/promises"
+import { minimatch } from "minimatch"
+import { dirname } from "path"
 import { ConfigFile } from "./types/config-file"
-import { log, warn } from "console"
+import { FolderPath } from "./types/folder-path"
 
 const DOCJIT_FOLDER = (workspaceFolder?: string) =>
   `${workspaceFolder ? `${workspaceFolder}/` : ""}.doc-jit`
