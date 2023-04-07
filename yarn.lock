@@ -188,10 +188,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.15.10.tgz#4ee2171c3306a185d1208dad5f44dae3dee4cfe3"
   integrity sha512-9avDaQJczATcXgfmMAW3MIWArOO7A+m90vuCFLr8AotWf8igO/mRoYukrk2cqZVtv38tHs33retzHEilM7FpeQ==
 
-"@types/vscode@^1.76.0":
-  version "1.76.0"
-  resolved "https://registry.yarnpkg.com/@types/vscode/-/vscode-1.76.0.tgz#967c0fbe09921818bbf201f1cbcb81b981c6249c"
-  integrity sha512-CQcY3+Fe5hNewHnOEAVYj4dd1do/QHliXaknAEYSXx2KEHUzFibDZSKptCon+HPgK55xx20pR+PBJjf0MomnBA==
+"@types/vscode@^1.73.1":
+  version "1.77.0"
+  resolved "https://registry.yarnpkg.com/@types/vscode/-/vscode-1.77.0.tgz#f92f15a636abc9ef562f44dd8af6766aefedb445"
+  integrity sha512-MWFN5R7a33n8eJZJmdVlifjig3LWUNRrPeO1xemIcZ0ae0TEQuRc7G2xV0LUX78RZFECY1plYBn+dP/Acc3L0Q==
 
 "@vitest/expect@0.29.8":
   version "0.29.8"
