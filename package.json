@@ -1,7 +1,7 @@
 {
   "name": "doc-jit",
   "publisher": "jcalixte",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "A documentation just in time to access the right doc when you need it the most",
   "icon": "./assets/doc-jit.png",
   "license": "MIT",
