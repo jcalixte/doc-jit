@@ -15,10 +15,11 @@
   ],
   "main": "./dist/index.js",
   "engines": {
-    "vscode": "^1.76.0"
+    "vscode": "^1.73.1"
   },
   "activationEvents": [
-    "onStartupFinished"
+    "onStartupFinished",
+    "onCommand:docjit.open"
   ],
   "scripts": {
     "test": "vitest",
@@ -57,7 +58,7 @@
   },
   "devDependencies": {
     "@types/node": "^18.15.10",
-    "@types/vscode": "^1.76.0",
+    "@types/vscode": "^1.73.1",
     "@vscode/vsce": "^2.18.0",
     "bumpp": "^9.0.0",
     "esbuild": "^0.17.14",
