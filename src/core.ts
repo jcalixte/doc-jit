@@ -82,6 +82,7 @@ export const getUrlsFromFilePath = async (
   filePath: string
 ): Promise<string[]> => {
   const configFile = await getConfigFile(workspaceFolder)
+  const filename = filePath?.split("/")?.pop() ?? ""
 
   if (!configFile?.patterns) {
     return []
@@ -90,7 +91,8 @@ export const getUrlsFromFilePath = async (
   const links: string[] = []
 
   for (const globPattern in configFile.patterns) {
-    const isMatching = minimatch(filePath, globPattern)
+    const isMatching =
+      minimatch(filePath, globPattern) || filename === globPattern
 
     if (isMatching) {
       const localLinks = configFile.patterns[globPattern]

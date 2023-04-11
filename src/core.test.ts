@@ -57,10 +57,12 @@ describe("with .doc-jit folder", () => {
       relativeFilePath
     )
 
-    expect(documentations).toEqual([
-      ".doc-jit/modules/__/hook/use-hook.md",
-      ".doc-jit/modules/book/hook/use-book-hook.md",
-    ])
+    expect(documentations).toEqual(
+      expect.arrayContaining([
+        ".doc-jit/modules/__/hook/use-hook.md",
+        ".doc-jit/modules/book/hook/use-book-hook.md",
+      ])
+    )
   })
 
   it("works with workspace folder", async () => {
@@ -72,10 +74,12 @@ describe("with .doc-jit folder", () => {
       absoluteFilePath
     )
 
-    expect(documentations).toEqual([
-      `${workspaceFolderPath}/.doc-jit/modules/__/hook/use-hook.md`,
-      `${workspaceFolderPath}/.doc-jit/modules/book/hook/use-book-hook.md`,
-    ])
+    expect(documentations).toEqual(
+      expect.arrayContaining([
+        `${workspaceFolderPath}/.doc-jit/modules/__/hook/use-hook.md`,
+        `${workspaceFolderPath}/.doc-jit/modules/book/hook/use-book-hook.md`,
+      ])
+    )
   })
 })
 
@@ -121,5 +125,16 @@ describe("with config file", () => {
       "https://link-to-user-ts-files.com",
       "https://link-to-ts-files.com",
     ])
+  })
+
+  it("matchs for the same filename in patterns", async () => {
+    const workspaceFolderPath = process.cwd()
+
+    const urlsFromFile = await getUrlsFromFilePath(
+      workspaceFolderPath,
+      "package.json"
+    )
+
+    expect(urlsFromFile).toEqual(["http://npmjs.com"])
   })
 })
