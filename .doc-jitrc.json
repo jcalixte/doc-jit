@@ -5,6 +5,7 @@
     "**/user/*.ts": [
       "https://link-to-user-ts-files.com",
       "https://link-to-ts-files.com"
-    ]
+    ],
+    "package.json": "http://npmjs.com"
   }
 }
