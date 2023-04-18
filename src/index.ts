@@ -6,6 +6,33 @@ import {
   hasConfigFile,
 } from "./core"
 
+const hasDocumentation = async (
+  workspaceFolderPath: string,
+  filePath: string
+) => {
+  const links = await getUrlsFromFilePath(workspaceFolderPath, filePath)
+
+  return links.length > 0
+}
+
+const displayCommand = async () => {
+  const workspaceFolders = workspace.workspaceFolders
+
+  const document = window.activeTextEditor?.document
+  const filePath = document?.fileName
+
+  if (workspaceFolders && filePath && window.activeTextEditor) {
+    const [firstWorkspaceFolder] = workspaceFolders
+    const firstWorkspaceFolderPath = firstWorkspaceFolder.uri.path ?? ""
+
+    commands.executeCommand(
+      "setContext",
+      "docjit.docExists",
+      await hasDocumentation(firstWorkspaceFolderPath, filePath)
+    )
+  }
+}
+
 export const openLinks = async (
   workspaceFolderPath: string,
   filePath: string
@@ -72,6 +99,11 @@ export const activate = (context: ExtensionContext) => {
       }
     })
   )
+
+  displayCommand()
+  window.onDidChangeActiveTextEditor(() => {
+    displayCommand()
+  })
 }
 
 export const deactivate = () => {}

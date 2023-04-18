@@ -46,7 +46,7 @@
         {
           "command": "docjit.open",
           "group": "navigation",
-          "when": "editorTextFocus"
+          "when": "docjit.docExists"
         }
       ]
     }
