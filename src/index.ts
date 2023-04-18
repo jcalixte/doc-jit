@@ -16,9 +16,15 @@ export const openLinks = async (
     return
   }
 
-  for (const link of links) {
-    commands.executeCommand("vscode.open", Uri.parse(link))
+  const link = await window.showQuickPick(links, {
+    placeHolder: "Open a documentation link",
+  })
+
+  if (!link) {
+    return
   }
+
+  commands.executeCommand("vscode.open", Uri.parse(link))
 }
 
 export const activate = (context: ExtensionContext) => {
