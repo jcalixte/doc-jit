@@ -1,3 +1,4 @@
+import path from "path"
 import { ExtensionContext, Uri, commands, window, workspace } from "vscode"
 import {
   getDocumentationsFromFilePath,
@@ -24,7 +25,11 @@ export const openLinks = async (
     return
   }
 
-  commands.executeCommand("vscode.open", Uri.parse(link))
+  const uri = link.startsWith("http")
+    ? link
+    : path.resolve(workspaceFolderPath, link)
+
+  commands.executeCommand("vscode.open", Uri.parse(uri))
 }
 
 export const activate = (context: ExtensionContext) => {
