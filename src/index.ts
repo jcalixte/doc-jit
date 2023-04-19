@@ -44,17 +44,25 @@ export const openLinks = async (
     return
   }
 
-  const link = await window.showQuickPick(links, {
+  const labels = links.map((link) => link.label)
+
+  const choosenLabel = await window.showQuickPick(labels, {
     placeHolder: "Open a documentation link",
   })
+
+  if (!choosenLabel) {
+    return
+  }
+
+  const link = links.find((link) => link.label === choosenLabel)
 
   if (!link) {
     return
   }
 
-  const uri = link.startsWith("http")
-    ? link
-    : path.resolve(workspaceFolderPath, link)
+  const uri = link.uri.startsWith("http")
+    ? link.uri
+    : path.resolve(workspaceFolderPath, link.uri)
 
   commands.executeCommand("vscode.open", Uri.parse(uri))
 }

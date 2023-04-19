@@ -2,7 +2,10 @@
   "patterns": {
     "**/*.component.tsx": [
       "https://marketplace.visualstudio.com/items?itemName=jcalixte.doc-jit",
-      "https://github.com/jcalixte/doc-jit",
+      {
+        "label": "DOC-JIT documentation",
+        "uri": "https://github.com/jcalixte/doc-jit"
+      },
       "./README.md"
     ],
     "package.json": "http://npmjs.com"
