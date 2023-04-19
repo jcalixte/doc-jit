@@ -109,7 +109,12 @@ describe("with config file", () => {
       "modules/user/UserLogin.component.tsx"
     )
 
-    expect(urlsFromFile).toEqual(["https://link-to-component-doc.com"])
+    expect(urlsFromFile).toEqual([
+      {
+        label: "Creating a React Component",
+        uri: "https://link-to-component-doc.com",
+      },
+    ])
   })
 
   it("returns a list with glob with string and arrays", async () => {
@@ -121,9 +126,18 @@ describe("with config file", () => {
     )
 
     expect(urlsFromFile).toEqual([
-      "https://link-to-hook-doc.com",
-      "https://link-to-user-ts-files.com",
-      "https://link-to-ts-files.com",
+      {
+        label: "https://link-to-hook-doc.com",
+        uri: "https://link-to-hook-doc.com",
+      },
+      {
+        label: "https://link-to-user-ts-files.com",
+        uri: "https://link-to-user-ts-files.com",
+      },
+      {
+        label: "https://link-to-ts-files.com",
+        uri: "https://link-to-ts-files.com",
+      },
     ])
   })
 
@@ -135,6 +149,11 @@ describe("with config file", () => {
       "package.json"
     )
 
-    expect(urlsFromFile).toEqual(["http://npmjs.com"])
+    expect(urlsFromFile).toEqual([
+      {
+        label: "NPM Js website",
+        uri: "http://npmjs.com",
+      },
+    ])
   })
 })

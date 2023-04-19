@@ -1,11 +1,17 @@
 {
   "patterns": {
-    "**/*.component.tsx": "https://link-to-component-doc.com",
+    "**/*.component.tsx": {
+      "label": "Creating a React Component",
+      "uri": "https://link-to-component-doc.com"
+    },
     "**/*.hook.ts": "https://link-to-hook-doc.com",
     "**/user/*.ts": [
       "https://link-to-user-ts-files.com",
       "https://link-to-ts-files.com"
     ],
-    "package.json": "http://npmjs.com"
+    "package.json": {
+      "label": "NPM Js website",
+      "uri": "http://npmjs.com"
+    }
   }
 }

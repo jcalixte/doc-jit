@@ -4,6 +4,7 @@ import { minimatch } from "minimatch"
 import { dirname } from "path"
 import { ConfigFile } from "./types/config-file"
 import { FolderPath } from "./types/folder-path"
+import { Resource } from "./types/resource"
 
 const DOCJIT_FOLDER = (workspaceFolder?: string) =>
   `${workspaceFolder ? `${workspaceFolder}/` : ""}.doc-jit`
@@ -80,7 +81,7 @@ export const hasConfigFile = async (workspaceFolder?: string) => {
 export const getUrlsFromFilePath = async (
   workspaceFolder: string,
   filePath: string
-): Promise<string[]> => {
+): Promise<Resource[]> => {
   const configFile = await getConfigFile(workspaceFolder)
   const filename = filePath?.split("/")?.pop() ?? ""
 
@@ -88,7 +89,7 @@ export const getUrlsFromFilePath = async (
     return []
   }
 
-  const links: string[] = []
+  const links: Resource[] = []
 
   for (const globPattern in configFile.patterns) {
     const isMatching =
@@ -97,9 +98,16 @@ export const getUrlsFromFilePath = async (
     if (isMatching) {
       const localLinks = configFile.patterns[globPattern]
       if (Array.isArray(localLinks)) {
-        links.push(...localLinks)
+        const resources = localLinks.map((link) =>
+          typeof link === "string" ? { label: link, uri: link } : link
+        )
+        links.push(...resources)
       } else {
-        links.push(localLinks)
+        const resource =
+          typeof localLinks === "string"
+            ? { label: localLinks, uri: localLinks }
+            : localLinks
+        links.push(resource)
       }
     }
   }
