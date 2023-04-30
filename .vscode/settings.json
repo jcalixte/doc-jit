@@ -1,5 +1,6 @@
 {
   "peacock.color": "#f8c291",
+  "peacock.remoteColor": "#f8c291",
   "workbench.colorCustomizations": {
     "activityBar.activeBackground": "#fbddc1",
     "activityBar.background": "#fbddc1",
