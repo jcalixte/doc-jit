@@ -1,70 +1,19 @@
-import path from "path"
-import { ExtensionContext, Uri, commands, window, workspace } from "vscode"
+import { ExtensionContext, commands, window, workspace } from "vscode"
 import {
   getDocumentationsFromFilePath,
   getUrlsFromFilePath,
   hasConfigFile,
-} from "./core"
+} from "./modules/doc/core"
+import { displayCommand } from "./modules/vscode/displayCommand"
+import { openLinks } from "./modules/vscode/openLinks"
 
-const hasDocumentation = async (
+export const hasDocumentation = async (
   workspaceFolderPath: string,
   filePath: string
 ) => {
   const links = await getUrlsFromFilePath(workspaceFolderPath, filePath)
 
   return links.length > 0
-}
-
-const displayCommand = async () => {
-  const workspaceFolders = workspace.workspaceFolders
-
-  const document = window.activeTextEditor?.document
-  const filePath = document?.fileName
-
-  if (workspaceFolders && filePath && window.activeTextEditor) {
-    const [firstWorkspaceFolder] = workspaceFolders
-    const firstWorkspaceFolderPath = firstWorkspaceFolder.uri.path ?? ""
-
-    commands.executeCommand(
-      "setContext",
-      "docjit.docExists",
-      await hasDocumentation(firstWorkspaceFolderPath, filePath)
-    )
-  }
-}
-
-export const openLinks = async (
-  workspaceFolderPath: string,
-  filePath: string
-) => {
-  const links = await getUrlsFromFilePath(workspaceFolderPath, filePath)
-
-  if (!links.length) {
-    window.showInformationMessage(`No documentation found for ${filePath}`)
-    return
-  }
-
-  const labels = links.map((link) => link.label)
-
-  const choosenLabel = await window.showQuickPick(labels, {
-    placeHolder: "Open a documentation link",
-  })
-
-  if (!choosenLabel) {
-    return
-  }
-
-  const link = links.find((link) => link.label === choosenLabel)
-
-  if (!link) {
-    return
-  }
-
-  const uri = link.uri.startsWith("http")
-    ? link.uri
-    : path.resolve(workspaceFolderPath, link.uri)
-
-  commands.executeCommand("vscode.open", Uri.parse(uri))
 }
 
 export const activate = (context: ExtensionContext) => {
