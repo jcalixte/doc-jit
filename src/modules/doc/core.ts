@@ -91,23 +91,27 @@ export const getUrlsFromFilePath = async (
 
   const links: Resource[] = []
 
-  for (const globPattern in configFile.patterns) {
-    const isMatching =
-      minimatch(filePath, globPattern) || filename === globPattern
+  for (const rawPattern in configFile.patterns) {
+    const globPatterns = rawPattern.split(",").map((pattern) => pattern.trim())
 
-    if (isMatching) {
-      const localLinks = configFile.patterns[globPattern]
-      if (Array.isArray(localLinks)) {
-        const resources = localLinks.map((link) =>
-          typeof link === "string" ? { label: link, uri: link } : link
-        )
-        links.push(...resources)
-      } else {
-        const resource =
-          typeof localLinks === "string"
-            ? { label: localLinks, uri: localLinks }
-            : localLinks
-        links.push(resource)
+    for (const globPattern of globPatterns) {
+      const isMatching =
+        minimatch(filePath, globPattern) || filename === globPattern
+
+      if (isMatching) {
+        const localLinks = configFile.patterns[rawPattern]
+        if (Array.isArray(localLinks)) {
+          const resources = localLinks.map((link) =>
+            typeof link === "string" ? { label: link, uri: link } : link
+          )
+          links.push(...resources)
+        } else {
+          const resource =
+            typeof localLinks === "string"
+              ? { label: localLinks, uri: localLinks }
+              : localLinks
+          links.push(resource)
+        }
       }
     }
   }

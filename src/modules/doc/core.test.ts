@@ -6,6 +6,8 @@ import {
   hasConfigFile,
 } from "./core"
 
+const workspaceFolderPath = process.cwd()
+
 describe("with .doc-jit folder", () => {
   it("retrieves the folder path from a file path", () => {
     const relativeFilePath = "src/modules/user/components/User.tsx"
@@ -66,7 +68,6 @@ describe("with .doc-jit folder", () => {
   })
 
   it("works with workspace folder", async () => {
-    const workspaceFolderPath = process.cwd()
     const absoluteFilePath = `${workspaceFolderPath}/src/modules/book/hook/useBooks.ts`
 
     const documentations = await getDocumentationsFromFilePath(
@@ -91,8 +92,6 @@ describe("with config file", () => {
   })
 
   it("returns empty array if the file doest not satisfy glob patterns", async () => {
-    const workspaceFolderPath = process.cwd()
-
     const urlsFromFile = await getUrlsFromFilePath(
       workspaceFolderPath,
       "./no-glob-pattern-found"
@@ -102,8 +101,6 @@ describe("with config file", () => {
   })
 
   it("returns a list of URLs to open if the file satisfies glob patterns", async () => {
-    const workspaceFolderPath = process.cwd()
-
     const urlsFromFile = await getUrlsFromFilePath(
       workspaceFolderPath,
       "modules/user/UserLogin.component.tsx"
@@ -118,8 +115,6 @@ describe("with config file", () => {
   })
 
   it("returns a list with glob with string and arrays", async () => {
-    const workspaceFolderPath = process.cwd()
-
     const urlsFromFile = await getUrlsFromFilePath(
       workspaceFolderPath,
       "modules/user/useUser.hook.ts"
@@ -142,8 +137,6 @@ describe("with config file", () => {
   })
 
   it("matchs for the same filename in patterns", async () => {
-    const workspaceFolderPath = process.cwd()
-
     const urlsFromFile = await getUrlsFromFilePath(
       workspaceFolderPath,
       "package.json"
@@ -153,6 +146,32 @@ describe("with config file", () => {
       {
         label: "NPM Js website",
         uri: "http://npmjs.com",
+      },
+    ])
+  })
+
+  it("accepts multiple patterns splited with a ,", async () => {
+    const testFile = await getUrlsFromFilePath(
+      workspaceFolderPath,
+      "core.test.ts"
+    )
+
+    expect(testFile).toEqual([
+      {
+        label: "Vitest documentation",
+        uri: "https://vitest.dev/",
+      },
+    ])
+
+    const specFile = await getUrlsFromFilePath(
+      workspaceFolderPath,
+      "core.spec.ts"
+    )
+
+    expect(specFile).toEqual([
+      {
+        label: "Vitest documentation",
+        uri: "https://vitest.dev/",
       },
     ])
   })
