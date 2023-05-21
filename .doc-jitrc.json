@@ -9,7 +9,7 @@
       "https://link-to-user-ts-files.com",
       "https://link-to-ts-files.com"
     ],
-    "**.spec.ts, **.test.ts": {
+    "**/**.spec.ts, **/**.test.ts": {
       "label": "Vitest documentation",
       "uri": "https://vitest.dev/"
     },
