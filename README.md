@@ -38,6 +38,19 @@ Example:
 }
 ```
 
+ℹ️ You can link to the same documentation for different patterns and you can label the resources:
+
+```json
+{
+  "patterns": {
+    "**.test.ts, **.spec.ts": {
+      "label": "Vitest documentation",
+      "uri": "https://vitest.dev/"
+    }
+  }
+}
+```
+
 ### The documentation `.doc-jit` directory
 
 If you want to have the documentation close to the code, you can in a `doc-jit` directory and following these steps:
