@@ -9,7 +9,7 @@
       "https://link-to-user-ts-files.com",
       "https://link-to-ts-files.com"
     ],
-    "**.spec.ts, **.test.ts": {
+    "**/**.spec.ts, **/**.test.ts": {
       "label": "Vitest documentation",
       "uri": "https://vitest.dev/"
     },
@@ -21,10 +21,6 @@
       {
         "label": "Jest documentation",
         "uri": "https://jestjs.io/docs/getting-started"
-      },
-      {
-        "label": "Vitest documentation",
-        "uri": "https://vitest.dev/guide/"
       }
     ],
     "**/*.test.tsx": [

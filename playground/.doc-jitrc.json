@@ -8,6 +8,10 @@
       },
       "./README.md"
     ],
+    "**/**.spec.ts, **/**.test.ts": {
+      "label": "Vitest documentation",
+      "uri": "https://vitest.dev/"
+    },
     "package.json": "http://npmjs.com"
   }
 }
