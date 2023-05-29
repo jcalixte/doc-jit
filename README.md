@@ -51,6 +51,17 @@ Example:
 }
 ```
 
+<video controls autoplay loop preload="none" playsinline muted src="https://cdn.jsdelivr.net/gh/jcalixte/static@main/doc-jit/docjit-tuto.webm">
+  <source
+    src="https://cdn.jsdelivr.net/gh/jcalixte/static@main/doc-jit/docjit-tuto.webm"
+    type="video/webm"
+  />
+  <source
+    src="https://cdn.jsdelivr.net/gh/jcalixte/static@main/doc-jit/docjit-tuto.mp4"
+    type="video/mp4"
+  />
+</video>
+
 ### The documentation `.doc-jit` directory
 
 If you want to have the documentation close to the code, you can in a `doc-jit` directory and following these steps:
