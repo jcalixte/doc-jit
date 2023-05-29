@@ -51,16 +51,8 @@ Example:
 }
 ```
 
-<video controls autoplay loop preload="none" playsinline muted src="https://cdn.jsdelivr.net/gh/jcalixte/static@main/doc-jit/docjit-tuto.webm">
-  <source
-    src="https://cdn.jsdelivr.net/gh/jcalixte/static@main/doc-jit/docjit-tuto.webm"
-    type="video/webm"
-  />
-  <source
-    src="https://cdn.jsdelivr.net/gh/jcalixte/static@main/doc-jit/docjit-tuto.mp4"
-    type="video/mp4"
-  />
-</video>
+
+[Testing doc jit for test files](https://github.com/jcalixte/doc-jit/assets/3417063/35dea33a-97fe-4d22-b6ab-e1a16e309a83)
 
 ### The documentation `.doc-jit` directory
 
