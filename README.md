@@ -4,7 +4,7 @@
 
 ## Introduction
 
-Display the right documentation when you need it. `Doc-JIT` is an VS Code extension developers to open the most relevant documentation when coding features.
+Display the right documentation when you need it. `Doc-JIT` is a VS Code extension for developers to open the most relevant documentation when coding features.
 
 ## Getting started
 
